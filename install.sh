@@ -119,6 +119,9 @@ http2
 /usr/sbin/a2enmod "$(tr '\n' ' ' <<< "$APACHE_MODULES")"
 /usr/bin/systemctl restart apache2
 
+# Crontabs
+(/usr/bin/crontab -l ; echo "0 2 * * * docker image prune -a -f && docker volume prune -f && docker network prune -f") | /usr/bin/crontab -
+
 # Use docker-compose to start all the containers
 echo "Done! Please 'cd resources' and edit docker-compose.yml with your secrets, then run 'docker compose up -d'"
 
