@@ -11,29 +11,7 @@ fi
 /usr/bin/apt upgrade -y
 
 # Install base packages
-PACKAGES="
-git
-curl
-wget
-unzip
-zip
-htop
-vim
-sed
-apt-transport-https
-ca-certificates
-software-properties-common
-fail2ban
-dos2unix
-unattended-upgrades
-gnupg
-gnupg-agent
-lsb-release
-rsync
-neofetch
-dialog
-"
-/usr/bin/apt install -y "$(tr '\n' ' ' <<< "$PACKAGES")"
+/usr/bin/apt install -y git curl wget unzip zip htop vim sed apt-transport-https ca-certificates software-properties-common fail2ban dos2unix unattended-upgrades gnupg gnupg-agent lsb-release rsync neofetch dialog
 
 # Lockdown SSH
 /usr/bin/sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
@@ -68,63 +46,17 @@ echo \
 /usr/bin/systemctl enable --now docker
 
 # Install & Configure Apache
-PACKAGES="
-apache2
-php
-php-bcmath
-php-bz2
-php-curl
-php-intl
-php-mbstring
-php-mysql
-php-readline
-php-xml
-php-zip
-php-apcu
-php-cli
-php-common
-php-fpm
-php-gd
-php-igbinary
-php-imagick
-php-json
-php-pear
-php-redis
-php-dev
-php-gmp
-php-opcache
-php-soap
-libapache2-mod-php
-"
-/usr/bin/apt install -y "$(tr '\n' ' ' <<< "$PACKAGES")"
-
-APACHE_MODULES="
-actions
-headers
-proxy
-proxy_ajp
-proxy_balancer
-proxy_connect
-proxy_fcgi
-proxy_html
-proxy_http
-proxy_wstunnel
-rewrite
-slotmem_shm
-socache_shmcb
-ssl
-xml2enc
-http2
-"
-/usr/sbin/a2enmod "$(tr '\n' ' ' <<< "$APACHE_MODULES")"
+/usr/bin/apt install -y apache2 php php-bcmath php-bz2 php-curl php-intl php-mbstring php-mysql php-readline php-xml php-zip php-apcu php-cli php-common php-fpm php-gd php-igbinary php-imagick php-json php-pear php-redis php-dev php-gmp php-opcache php-soap libapache2-mod-php
+/usr/sbin/a2enmod actions headers proxy proxy_ajp proxy_balancer proxy_connect proxy_fcgi proxy_html proxy_http proxy_wstunnel rewrite slotmem_shm socache_shmcb ssl xml2enc http2
 /usr/bin/systemctl restart apache2
 
 # Crontabs
 (/usr/bin/crontab -l ; echo "0 2 * * * docker image prune -a -f && docker volume prune -f && docker network prune -f") | /usr/bin/crontab -
 
 groupadd media
+mkdir /dockerData
+git clone https://github.com/micaharies/personal-website.git /var/www/mhaire.net
 
-# Use docker-compose to start all the containers
-echo "Done! Please 'cd resources' and edit docker-compose.yml with your secrets, then run 'docker compose up -d'"
+echo "Done! Please continue with the guide."
 
 cd ~ || exit
