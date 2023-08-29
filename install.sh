@@ -120,8 +120,6 @@ http2
 /usr/bin/systemctl restart apache2
 
 # Use docker-compose to start all the containers
-cd ./resources || exit
-/usr/bin/docker compose up -d
-cd ../
+echo "Done! Please 'cd resources' and edit docker-compose.yml with your secrets, then run 'docker compose up -d'"
 
 cd ~ || exit
