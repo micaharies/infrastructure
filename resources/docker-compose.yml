@@ -228,7 +228,7 @@ services:
         volumes:
             - '/dockerData/iw4x:/iw4x'
         environment:
-            - 'GAME_PARAMS=+exec server.cfg'
+            - 'GAME_PARAMS=-dedicated +exec server.cfg +map_rotate'
         ports:
             - '28965:28960/udp'
             - '28965:28960'
@@ -239,7 +239,7 @@ services:
         volumes:
             - '/dockerData/iw4x:/iw4x'
         environment:
-            - 'GAME_PARAMS=+exec promod.cfg +set fs_game mods/promod'
+            - 'GAME_PARAMS=-dedicated +exec promod.cfg +set fs_game mods/promod +map_rotate'
         ports:
             - '28960:28960/udp'
             - '28960:28960'
