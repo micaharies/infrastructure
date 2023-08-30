@@ -245,3 +245,11 @@ services:
             - '28960:28960'
         container_name: IW4x-Promod
         restart: "unless-stopped"
+    iw4madmin:
+        image: 'git.chse.dev/gaming/iw4madmin-docker:latest'
+        volumes:
+            - '/dockerData/iw4madmin:/iw4madmin'
+        ports:
+            - '1624:1624'
+        container_name: IW4MAdmin
+        restart: "unless-stopped"
