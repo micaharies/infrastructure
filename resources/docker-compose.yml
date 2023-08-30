@@ -198,4 +198,18 @@ services:
             - '/dockerData/adguard/work:/opt/adguardhome/work'
         restart: unless-stopped
         container_name: adguardhome
-
+    csgo:
+        image: 'cm2network/csgo:sourcemod'
+        environment:
+            - SRCDS_MAPGROUP=mg_custom
+            - SRCDS_MAXPLAYERS=10
+            - SRCDS_WORKSHOP_AUTHKEY=aaa #! Change This
+            - SRCDS_TOKEN=aaa #! Change This
+            - SRCDS_PORT=28962
+        container_name: csgo
+        volumes:
+            - '/dockerData/csgo:/home/steam/csgo-dedicated/'
+        ports:
+            - '28962:28962/udp'
+            - '28962:28962'
+        restart: unless-stopped
