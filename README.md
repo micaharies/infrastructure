@@ -5,7 +5,7 @@
 # Login with user created during install
 sudo su -
 cd ~
-cp /home/usernameCreatedDuringInstall/.ssh/authorized_keys .
+cp /home/user/.ssh/authorized_keys /root/.ssh
 git clone https://github.com/micaharies/infrastructure.git
 cd infrastructure
 bash install.sh
