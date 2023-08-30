@@ -213,3 +213,12 @@ services:
             - '28962:28962/udp'
             - '28962:28962'
         restart: unless-stopped
+    cs-demo-uploader:
+        image: 'git.chse.dev/chase/cs-demo-uploader:latest'
+        environment:
+            - DELETE_AFTER_UPLOAD=false
+            - UPLOAD_CHANNEL_ID= #! Change This
+            - DISCORD_BOT_TOKEN= #! Change This
+        volumes:
+            - '/dockerData/csgo/csgo:/csgo'
+        container_name: cs-demo-uploader
