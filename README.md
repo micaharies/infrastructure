@@ -1,6 +1,7 @@
 # Home Server Infrastructure
 
 ```bash
+# Backup /dockerData and Apache2 Configs First
 # Install Ubuntu Server, Import SSH Keys
 # Login with user created during install
 sudo su -
