@@ -47,7 +47,7 @@ sudo systemctl restart apache2
 ### 5. Deploy Nextcloud
 ```bash
 # Backup Nextcloud Data
-rm /mnt/easystore/nc_backup_files
+rm -rf /mnt/easystore/nc_backup_files
 mkdir /mnt/easystore/nc_backup_files
 mv /mnt/easystore/nextcloud/admin/files/* /mnt/easystore/nc_backup_files/
 rm -rf /mnt/easystore/nextcloud # Clean out existing Nextcloud (for reinstall)
@@ -79,6 +79,7 @@ nextcloud/all-in-one:latest
 mv /mnt/easystore/nc_backup_files/* /mnt/easystore/nextcloud/admin/files/
 chown -R www-data:www-data /mnt/easystore/nextcloud/admin/files/
 sudo docker exec --user www-data -it nextcloud-aio-nextcloud php occ files:scan --all
+rm -rf /mnt/easystore/nc_backup_files
 ```
 ### 6. Deploy Immich
 ```bash
