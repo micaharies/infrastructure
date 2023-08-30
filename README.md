@@ -66,5 +66,5 @@ nextcloud/all-in-one:latest
       4. Set Timezone
       5. Start Containers
    2. Copy/Move Data Back (`cp -r /mnt/easystore/nc_backup_files/* /mnt/easystore/nextcloud/admin/files/`, or `mv /mnt/easystore/nc_backup_files/* /mnt/easystore/nextcloud/admin/files/`)
-   3. Re-Index Files
+   3. Re-Index Files (`sudo docker exec --user www-data -it nextcloud-aio-nextcloud php occ files:scan --all`)
 1. Deploy Immich (`cd /dockerData/immich && docker compose up -d`) [Waiting on this PR to import data again](https://github.com/immich-app/immich/pull/3124)
