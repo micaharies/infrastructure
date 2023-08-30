@@ -222,6 +222,7 @@ services:
         volumes:
             - '/dockerData/csgo/csgo:/csgo'
         container_name: cs-demo-uploader
+        restart: "unless-stopped"
     iw4x-vanilla:
         image: 'git.chse.dev/gaming/iw4x-docker:latest'
         volumes:
@@ -232,6 +233,7 @@ services:
             - '28965:28960/udp'
             - '28965:28960'
         container_name: IW4x-Vanilla-SND
+        restart: "unless-stopped"
     iw4x-promod:
         image: 'git.chse.dev/gaming/iw4x-docker:latest'
         volumes:
@@ -242,3 +244,4 @@ services:
             - '28960:28960/udp'
             - '28960:28960'
         container_name: IW4x-Promod
+        restart: "unless-stopped"
