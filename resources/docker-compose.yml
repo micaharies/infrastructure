@@ -222,3 +222,23 @@ services:
         volumes:
             - '/dockerData/csgo/csgo:/csgo'
         container_name: cs-demo-uploader
+    iw4x-vanilla:
+        image: 'git.chse.dev/gaming/iw4x-docker:latest'
+        volumes:
+            - '/dockerData/iw4x:/iw4x'
+        environment:
+            - 'GAME_PARAMS=+exec server.cfg'
+        ports:
+            - '28965:28960/udp'
+            - '28965:28960'
+        container_name: IW4x-Vanilla-SND
+    iw4x-promod:
+        image: 'git.chse.dev/gaming/iw4x-docker:latest'
+        volumes:
+            - '/dockerData/iw4x:/iw4x'
+        environment:
+            - 'GAME_PARAMS=+exec promod.cfg +set fs_game mods/promod'
+        ports:
+            - '28960:28960/udp'
+            - '28960:28960'
+        container_name: IW4x-Promod
