@@ -124,6 +124,11 @@ services:
     volumes:
       - "/dockerData/qbit:/config"
       - "/mnt/easystore/torrents:/downloads"
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv6.conf.all.disable_ipv6=0
   readarr:
     container_name: "readarr"
     environment:
@@ -187,72 +192,79 @@ services:
     restart: "unless-stopped"
     volumes:
       - "/dockerData/wg:/etc/wireguard"
-    adguardhome:
-        image: adguard/adguardhome
-        ports:
-            - '3500:3000/tcp'
-            - '53:53/udp'
-            - '53:53/tcp'
-        volumes:
-            - '/dockerData/adguard/config:/opt/adguardhome/conf'
-            - '/dockerData/adguard/work:/opt/adguardhome/work'
-        restart: unless-stopped
-        container_name: adguardhome
-    csgo:
-        image: 'cm2network/csgo:sourcemod'
-        environment:
-            - SRCDS_MAPGROUP=mg_custom
-            - SRCDS_MAXPLAYERS=10
-            - SRCDS_WORKSHOP_AUTHKEY=aaa #! Change This
-            - SRCDS_TOKEN=aaa #! Change This
-            - SRCDS_PORT=28962
-            - ADDITIONAL_ARGS=-console -usercon -net_port_try 1 -condebug
-        container_name: csgo
-        volumes:
-            - '/dockerData/csgo:/home/steam/csgo-dedicated/'
-        ports:
-            - '28962:28962/udp'
-            - '28962:28962'
-        restart: unless-stopped
-    cs-demo-uploader:
-        image: 'git.chse.dev/chase/cs-demo-uploader:latest'
-        environment:
-            - DELETE_AFTER_UPLOAD=false
-            - UPLOAD_CHANNEL_ID= #! Change This
-            - DISCORD_BOT_TOKEN= #! Change This
-        volumes:
-            - '/dockerData/csgo/csgo:/csgo'
-        container_name: cs-demo-uploader
-        restart: "unless-stopped"
-    iw4x-vanilla:
-        image: 'git.chse.dev/gaming/iw4x-docker:latest'
-        volumes:
-            - '/dockerData/iw4x:/iw4x'
-        environment:
-            - 'GAME_PARAMS=-dedicated +exec server.cfg +map_rotate'
-        ports:
-            - '28965:28960/udp'
-            - '28965:28960'
-        container_name: IW4x-Vanilla-SND
-        restart: "unless-stopped"
-    iw4x-promod:
-        image: 'git.chse.dev/gaming/iw4x-docker:latest'
-        volumes:
-            - '/dockerData/iw4x:/iw4x'
-        environment:
-            - 'GAME_PARAMS=-dedicated +exec promod.cfg +set fs_game mods/promod +map_rotate'
-        ports:
-            - '28960:28960/udp'
-            - '28960:28960'
-        container_name: IW4x-Promod
-        restart: "unless-stopped"
-    iw4madmin:
-        image: 'git.chse.dev/gaming/iw4madmin-docker:latest'
-        volumes:
-            - '/dockerData/iw4madmin:/iw4madmin'
-            - '/dockerData/iw4x:/iw4x'
-            - '/dockerData/csgo:/csgo'
-        ports:
-            - '1624:1624'
-        container_name: IW4MAdmin
-        restart: "unless-stopped"
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1
+  adguardhome:
+      image: adguard/adguardhome
+      ports:
+          - '3500:3000/tcp'
+          - '53:53/udp'
+          - '53:53/tcp'
+      volumes:
+          - '/dockerData/adguard/config:/opt/adguardhome/conf'
+          - '/dockerData/adguard/work:/opt/adguardhome/work'
+      restart: unless-stopped
+      container_name: adguardhome
+      network_mode: host
+  csgo:
+      image: 'cm2network/csgo:sourcemod'
+      environment:
+          - SRCDS_MAPGROUP=mg_custom
+          - SRCDS_MAXPLAYERS=10
+          - SRCDS_WORKSHOP_AUTHKEY=aaa #! Change This
+          - SRCDS_TOKEN=aaa #! Change This
+          - SRCDS_PORT=28962
+          - ADDITIONAL_ARGS=-console -usercon -net_port_try 1 -condebug
+      container_name: csgo
+      volumes:
+          - '/dockerData/csgo:/home/steam/csgo-dedicated/'
+      ports:
+          - '28962:28962/udp'
+          - '28962:28962'
+      restart: unless-stopped
+  cs-demo-uploader:
+      image: 'git.chse.dev/chase/cs-demo-uploader:latest'
+      environment:
+          - DELETE_AFTER_UPLOAD=false
+          - UPLOAD_CHANNEL_ID= #! Change This
+          - DISCORD_BOT_TOKEN= #! Change This
+      volumes:
+          - '/dockerData/csgo/csgo:/csgo'
+      container_name: cs-demo-uploader
+      restart: "unless-stopped"
+  iw4x-vanilla:
+      image: 'git.chse.dev/gaming/iw4x-docker:latest'
+      volumes:
+          - '/dockerData/iw4x:/iw4x'
+      environment:
+          - 'GAME_PARAMS=-dedicated +exec server.cfg +map_rotate'
+      ports:
+          - '28965:28960/udp'
+          - '28965:28960'
+      container_name: IW4x-Vanilla-SND
+      restart: "unless-stopped"
+  iw4x-promod:
+      image: 'git.chse.dev/gaming/iw4x-docker:latest'
+      volumes:
+          - '/dockerData/iw4x:/iw4x'
+      environment:
+          - 'GAME_PARAMS=-dedicated +exec promod.cfg +set fs_game mods/promod +map_rotate'
+      ports:
+          - '28960:28960/udp'
+          - '28960:28960'
+      container_name: IW4x-Promod
+      restart: "unless-stopped"
+  iw4madmin:
+      image: 'git.chse.dev/gaming/iw4madmin-docker:latest'
+      volumes:
+          - '/dockerData/iw4madmin:/iw4madmin'
+          - '/dockerData/iw4x:/iw4x'
+          - '/dockerData/csgo:/csgo'
+      ports:
+          - '1624:1624'
+      container_name: IW4MAdmin
+      restart: "unless-stopped"

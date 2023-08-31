@@ -40,11 +40,7 @@ sudo systemctl restart apache2
 1. Look in [docker-compose.yml](https://github.com/micaharies/infrastructure/blob/main/resources/docker-compose.yml)
 2. Search for `PGID`
 3. `chown -R user:media /dockerData/containerName`
-### 4. Fix Containers
-1. Open Portainer
-2. Look for any container that doesn't have a IP/Published Port that is expecting one
-3. Fix Them
-### 5. Deploy Nextcloud
+### 4. Deploy Nextcloud
 ```bash
 # Backup Nextcloud Data
 rm -rf /mnt/easystore/nc_backup_files
@@ -81,7 +77,7 @@ chown -R www-data:www-data /mnt/easystore/nextcloud/admin/files/
 sudo docker exec --user www-data -it nextcloud-aio-nextcloud php occ files:scan --all
 rm -rf /mnt/easystore/nc_backup_files
 ```
-### 6. Deploy Immich
+### 5. Deploy Immich
 ```bash
 cd /dockerData/immich
 docker compose up -d
