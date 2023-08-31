@@ -206,6 +206,7 @@ services:
             - SRCDS_WORKSHOP_AUTHKEY=aaa #! Change This
             - SRCDS_TOKEN=aaa #! Change This
             - SRCDS_PORT=28962
+            - ADDITIONAL_ARGS=-console -usercon -net_port_try 1 -condebug
         container_name: csgo
         volumes:
             - '/dockerData/csgo:/home/steam/csgo-dedicated/'
