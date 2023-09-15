@@ -242,7 +242,7 @@ services:
     volumes:
       - '/dockerData/iw4x:/iw4x'
     environment:
-      - 'GAME_PARAMS=-dedicated +exec server.cfg +map_rotate'
+      - 'GAME_PARAMS=-dedicated -disable-rate-limit-check +exec server.cfg +map_rotate'
     ports:
       - '28965:28960/udp'
       - '28965:28960'
@@ -253,7 +253,7 @@ services:
     volumes:
       - '/dockerData/iw4x:/iw4x'
     environment:
-      - 'GAME_PARAMS=-dedicated +exec promod.cfg +set fs_game mods/promod +map_rotate'
+      - 'GAME_PARAMS=-dedicated -disable-rate-limit-check +exec promod.cfg +set fs_game mods/promod +map_rotate'
     ports:
       - '28960:28960/udp'
       - '28960:28960'
@@ -282,5 +282,5 @@ services:
       TYPE: "PURPUR"
       EULA: "TRUE"
     volumes:
-      # attach the relative directory 'data' to the container's /data path
       - /dockerData/mc:/data
+    restart: "unless-stopped"
