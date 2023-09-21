@@ -275,6 +275,8 @@ services:
     stdin_open: true
     ports:
       - "25565:25565"
+      - "19132:19132"
+      - "19132:19132/udp"
     environment:
       MEMORY: "4G"
       USE_AIKAR_FLAGS: "true"
