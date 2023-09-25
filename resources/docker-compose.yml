@@ -286,3 +286,36 @@ services:
     volumes:
       - /dockerData/mc:/data
     restart: "unless-stopped"
+  bookstack:
+    image: lscr.io/linuxserver/bookstack
+    container_name: bookstack
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - APP_URL=https://192.168.0.31:2002
+      - DB_HOST=bookstack_db
+      - DB_PORT=3306
+      - DB_USER=bookstack
+      - DB_PASS=#! Change This
+      - DB_DATABASE=bookstackapp
+    volumes:
+      - /dockerData/bookstack/config:/config
+    ports:
+      - 2002:80
+    restart: unless-stopped
+    depends_on:
+      - bookstack_db
+  bookstack_db:
+    image: lscr.io/linuxserver/mariadb
+    container_name: bookstack_db
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=#! Change This
+      - TZ=America/New_York
+      - MYSQL_DATABASE=bookstackapp
+      - MYSQL_USER=bookstack
+      - MYSQL_PASSWORD= #! Change This
+    volumes:
+      - /dockerData/bookstack/db:/config
+    restart: unless-stopped
