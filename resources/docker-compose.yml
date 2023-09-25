@@ -319,3 +319,14 @@ services:
     volumes:
       - /dockerData/bookstack/db:/config
     restart: unless-stopped
+  ntfy:
+    image: binwiederhier/ntfy
+    container_name: ntfy
+    command:
+      - serve --cache-file /var/cache/ntfy/cache.db
+    volumes:
+      - /dockerData/ntfy:/var/cache/ntfy
+      - /dockerData/ntfy/server.yml:/etc/ntfy/server.yml
+    ports:
+      - 2003:80
+    restart: unless-stopped
