@@ -330,3 +330,11 @@ services:
     ports:
       - 2003:80
     restart: unless-stopped
+  fast-cli-api:
+    image: 'git.chse.dev/chase/fast-cli-api:latest'
+    ports:
+        - '1993:3000'
+    environment:
+        - RETEST_EVERY_X_HOURS=6
+    container_name: fast-cli-api
+    restart: unless-stopped
