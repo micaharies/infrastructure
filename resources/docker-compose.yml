@@ -388,3 +388,11 @@ services:
       - /mnt/easystore/yt/es:/usr/share/elasticsearch/data # check for permission error when using bind mount, see readme
     expose:
       - "9200"
+  dizquetv:
+    image: vexorian/dizquetv:latest
+    container_name: dizquetv
+    restart: unless-stopped
+    ports:
+      - 2005:8000
+    volumes:
+      - /mnt/easystore/yt/dizque:/home/node/app/.dizquetv
