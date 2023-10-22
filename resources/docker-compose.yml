@@ -396,3 +396,11 @@ services:
       - 2005:8000
     volumes:
       - /mnt/easystore/yt/dizque:/home/node/app/.dizquetv
+  uptime-kuma:
+    image: 'louislam/uptime-kuma:1'
+    container_name: uptime-kuma
+    volumes:
+      - '/dockerData/uptimekuma:/app/data'
+    ports:
+      - '2006:3001'
+    restart: always
