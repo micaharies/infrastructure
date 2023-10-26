@@ -82,4 +82,3 @@ rm -rf /mnt/easystore/nc_backup_files
 cd /dockerData/immich
 docker compose up -d
 ```
-[Waiting on this PR to import existing library.](https://github.com/immich-app/immich/pull/3124)
