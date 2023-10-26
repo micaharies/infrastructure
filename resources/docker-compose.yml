@@ -404,3 +404,18 @@ services:
     ports:
       - '2006:3001'
     restart: always
+  kasm:
+    image: 'lscr.io/linuxserver/kasm:latest'
+    restart: unless-stopped
+    volumes:
+      - '/run/udev/data:/run/udev/data'
+      - '/dev/input:/dev/input'
+      - '/mnt/easystore/kasm/profiles:/profiles'
+      - '/mnt/easystore/kasm/opt:/opt'
+    ports:
+      - '2010:2010'
+      - '3000:3000'
+    environment:
+      - KASM_PORT=2010
+    privileged: true
+    container_name: kasm
