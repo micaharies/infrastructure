@@ -199,18 +199,6 @@ services:
     sysctls:
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.src_valid_mark=1
-  adguardhome:
-    image: adguard/adguardhome
-    ports:
-      - '3500:3000/tcp'
-      - '53:53/udp'
-      - '53:53/tcp'
-    volumes:
-      - '/dockerData/adguard/config:/opt/adguardhome/conf'
-      - '/dockerData/adguard/work:/opt/adguardhome/work'
-    restart: unless-stopped
-    container_name: adguardhome
-    network_mode: host
   csgo:
     image: 'cm2network/csgo:sourcemod'
     environment:
