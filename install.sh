@@ -11,7 +11,7 @@ fi
 /usr/bin/apt upgrade -y
 
 # Install base packages
-/usr/bin/apt install -y git curl wget unzip zip htop vim sed apt-transport-https ca-certificates software-properties-common fail2ban dos2unix unattended-upgrades gnupg gnupg-agent lsb-release rsync neofetch dialog
+/usr/bin/apt install -y git curl wget unzip zip htop vim sed apt-transport-https ca-certificates software-properties-common fail2ban dos2unix unattended-upgrades gnupg gnupg-agent lsb-release rsync neofetch dialog zsh
 
 # Lockdown SSH
 /usr/bin/sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
@@ -33,6 +33,12 @@ fi
 # sysctl tweaks
 /usr/bin/cp ./resources/sysctl.conf /etc/sysctl.conf
 /usr/sbin/sysctl -p
+
+# Set default shell to zsh
+/usr/bin/chsh -s "$(which zsh)"
+
+# Install oh-my-zsh
+/usr/bin/sh -c "$(/usr/bin/curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # Install docker
 ## INFO: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
