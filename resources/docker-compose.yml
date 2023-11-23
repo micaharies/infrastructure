@@ -407,3 +407,22 @@ services:
       - KASM_PORT=2010
     privileged: true
     container_name: kasm
+  mhaire.net:
+      image: 'webdevops/php-apache:8.2'
+      volumes:
+          - '/dockerData/mhaire.net:/app'
+      ports:
+          - '2007:80'
+      restart: unless-stopped
+      container_name: mhaire.net
+  nginx-proxy-manager:
+      image: 'jc21/nginx-proxy-manager:latest'
+      volumes:
+          - '/dockerData/npm/data:/data'
+          - '/dockerData/npm/cert:/etc/letsencrypt'
+      ports:
+          - '443:443'
+          - '81:81'
+          - '80:80'
+      restart: unless-stopped
+      container_name: npm
