@@ -11,7 +11,7 @@ fi
 /usr/bin/apt upgrade -y
 
 # Install base packages
-/usr/bin/apt install -y git curl wget unzip zip htop vim sed apt-transport-https ca-certificates software-properties-common fail2ban dos2unix unattended-upgrades gnupg gnupg-agent lsb-release rsync neofetch dialog zsh
+/usr/bin/apt install -y git curl wget unzip zip htop vim sed apt-transport-https ca-certificates software-properties-common fail2ban dos2unix unattended-upgrades gnupg gnupg-agent lsb-release rsync neofetch dialog zsh avahi-daemon
 
 # Lockdown SSH
 /usr/bin/sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
